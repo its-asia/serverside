@@ -251,7 +251,7 @@ local players = Players
 
 local slave = nil
 function Destroy(Item)
-	if slave == nil then return end
+	if slave == nil then gotslave = false return end
 	
 	slave:FireServer(
 		Item,
@@ -268,12 +268,14 @@ function findplayer(text)
 	return nil
 end
 
-local gotslave = false
+gotslave = false
 function register(slaves)
-	if slaves.Name == "DestroySegway" then
-		print("no u")
+	if not gotslave and slaves.Name == "DestroySegway" then
+		print("crappy segway with vulnerability found lmao")
 		
 		slave = slaves
+		gotslave = true
+		
 		kill.MouseButton1Down:connect(function()
 			if string.lower(target.Text) == "all" then
 				for i, c in pairs(Players:GetPlayers()) do
@@ -338,7 +340,7 @@ function register(slaves)
 					local char = c.Character
 					for index, item in pairs(char:GetChildren()) do
 						if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
-							item:Destroy()
+							Destroy(item)
 						end
 					end
 				end
@@ -347,7 +349,7 @@ function register(slaves)
 				local char = c.Character
 				for index, item in pairs(char:GetChildren()) do
 					if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
-						item:Destroy()
+						Destroy(item)
 					end
 				end
 			end
