@@ -47,6 +47,7 @@ top.BackgroundTransparency = 0.300
 top.BorderColor3 = Color3.fromRGB(27, 42, 53)
 top.BorderSizePixel = 0
 top.Draggable = true
+top.Active = true
 top.Position = UDim2.new(0.612145662, 1, 0.311965823, 0)
 top.Size = UDim2.new(0, 291, 0, 376)
 
@@ -260,7 +261,7 @@ end
 
 function findplayer(text)
 	for index, player in pairs(players:GetPlayers()) do
-		if player.Name == text or player.Name:match(text) then
+		if player.Name:lower() == text:lower() or player.DisplayName:lower() == text:lower() or string.sub(player.Name:lower(),0,text:len()) == text:lower() or string.sub(player.DisplayName:lower(),0,text:len()) == text:lower() then
 			return player
 		end
 	end
