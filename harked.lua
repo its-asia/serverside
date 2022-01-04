@@ -335,17 +335,21 @@ function register(slaves)
 		naked.MouseButton1Down:connect(function()
 			if string.lower(target.Text) == "all" then
 				for i, c in pairs(Players:GetPlayers()) do
-					local ohok = c.Character.Shirt
-					local ohoka = c.Character.Pants
-					Destroy(ohok)
-					Destroy(ohoka)
+					local char = c.Character
+					for index, item in pairs(char:GetChildren()) do
+						if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
+							item:Destroy()
+						end
+					end
 				end
 			else
 				local c = findplayer(target.Text)
-				local ohok = c.Character.Shirt
-				local ohoka = c.Character.Pants
-				Destroy(ohok)
-				Destroy(ohoka)
+				local char = c.Character
+				for index, item in pairs(char:GetChildren()) do
+					if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
+						item:Destroy()
+					end
+				end
 			end
 		end)
 
@@ -422,6 +426,7 @@ function register(slaves)
 			
 			Players.PlayerAdded:Connect(function(p)
 				if p.UserId == UserId then
+					wait()
 					Destroy(c)
 				end
 			end)
